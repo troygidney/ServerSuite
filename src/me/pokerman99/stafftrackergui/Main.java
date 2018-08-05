@@ -1,23 +1,14 @@
 package me.pokerman99.stafftrackergui;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import me.pokerman99.stafftrackergui.Listeners.buttonClickAction;
 import me.pokerman99.stafftrackergui.Objects.alertBoxObject;
 import me.pokerman99.stafftrackergui.Objects.closeProgramObject;
-import me.pokerman99.stafftrackergui.Objects.confirmBoxObject;
 
-public class Main extends Application {
+public class Main {
 
     private String host = "104.236.10.120";
     private String port = "3306";
@@ -26,49 +17,34 @@ public class Main extends Application {
     private String pass = "hDOJQed032";
 
 
-    public Stage window;
-    public Scene scene;
+    public static Stage window;
 
-    public static void main(String[] args) {
-        launch(args);
+    public static Scene loginScene;
+    public static Scene staffTrackerScene;
+
+
+    public static void main(String[] args) throws Exception{
+        loginPopup.launch(args);
     }
 
+    public static void setStaffTrackerScene(boolean allowed) {
+        if (allowed == false) {
+            alertBoxObject.display("Error!", "Incorrect password or username!");
+            return;
+        }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        window = primaryStage;
-        window.setTitle("Staff Tracker GUI");
-        //Windows close X button event
+        GridPane gridPane = new GridPane();
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+        staffTrackerScene = new Scene(gridPane);
+
         window.setOnCloseRequest(e -> {
-            closeProgramObject.closeProgram(window, e);
+            closeProgramObject.closeProgram(window, e, "Are you sure?", "Do you want to close?");
         });
 
-        HBox topMenu = new HBox();
-        Button buttona = new Button("File");
-        Button buttonb = new Button("Edit");
-        Button buttonc = new Button("View");
-
-        topMenu.getChildren().addAll(buttonc, buttona, buttonb);
-
-        VBox leftMenu = new VBox();
-        Button buttond = new Button("d");
-        Button buttone = new Button("e");
-        Button buttonf = new Button("f");
-
-        leftMenu.getChildren().addAll(buttond, buttone, buttonf);
-
-        BorderPane borderPane = new BorderPane();
-        borderPane.setTop(topMenu);
-        borderPane.setLeft(leftMenu);
-
-
-
-
-        scene = new Scene(borderPane, 300, 250);
-        window.setScene(scene);
-        window.show();
-
-
+        window.setScene(staffTrackerScene);
+        window.setResizable(true);
+        window.setMaximized(true);
     }
 
 }
