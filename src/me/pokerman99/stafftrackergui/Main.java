@@ -22,6 +22,7 @@ public class Main {
     public static Scene loginScene;
     public static Scene staffTrackerScene;
 
+    //TODO Make it so when you login it closes that window to create a new one. Closes stage not just changing scene
 
     public static void main(String[] args) throws Exception{
         loginPopup.launch(args);
