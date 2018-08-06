@@ -20,7 +20,7 @@ public class confirmBoxObject {
         window.setMinWidth(325);
         window.setMinHeight(75);
 
-        Label label =  new Label();
+        Label label = new Label();
         label.setText(message);
 
         Button yesButton = new Button("Yes");

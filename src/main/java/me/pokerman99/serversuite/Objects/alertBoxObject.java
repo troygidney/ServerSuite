@@ -18,11 +18,13 @@ public class alertBoxObject {
         window.setMinWidth(325);
         window.setMinHeight(75);
 
-        Label label =  new Label();
+        Label label = new Label();
         label.setText(message);
 
         Button closeButton = new Button("Close");
-        closeButton.setOnAction(e -> {window.close();});
+        closeButton.setOnAction(e -> {
+            window.close();
+        });
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll(label, closeButton);

@@ -25,7 +25,7 @@ public class closeProgramObject {
     }
 
     public static void closeProgramNoPrompot(Stage window) {
-            window.close();
+        window.close();
     }
 
 
