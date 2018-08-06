@@ -1,4 +1,4 @@
-package me.pokerman99.stafftrackergui.Objects;
+package me.pokerman99.serversuite.Objects;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
