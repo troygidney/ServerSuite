@@ -3,21 +3,20 @@ package me.pokerman99.serversuite;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import me.pokerman99.serversuite.Objects.closeProgramObject;
-import me.pokerman99.serversuite.Windows.staffTrackerWindow;
+import me.pokerman99.serversuite.Windows.staffTrackerWindow.staffTrackerWindow;
+import org.apache.commons.codec.digest.DigestUtils;
+
+import java.sql.*;
 
 public class Main extends Application {
-
-    private String host = "104.236.10.120";
-    private String port = "3306";
-    private String db = "staff_tracker";
-    private String user = "staff_tracker";
-    private String pass = "hDOJQed032";
 
 
     public static Stage loginWindow;
@@ -26,14 +25,12 @@ public class Main extends Application {
     public static Scene loginScene;
     public static Scene staffTrackerScene;
 
-    //TODO Make it so when you login it closes that window to create a new one. Closes stage not just changing scene
-
     public static void main(String[] args) throws Exception {
         launch(args);
     }
 
 
-    //TODO Make this actually work so it's secure atm it's just TEMP
+    //TODO Make it more secure atm it works for closed testing
 
 
     //Main login event that I want called.
@@ -58,7 +55,7 @@ public class Main extends Application {
         //Set the gridpane properties
         GridPane gridPane = new GridPane();
         {
-            gridPane.setPadding(new Insets(10, 10, 10, 10));
+            gridPane.setPadding(new Insets(7, 5, 0, 10));
             gridPane.setVgap(8);
             gridPane.setHgap(8);
             gridPane.getChildren().addAll(nameLabel, passLabel, nameInput, passInput, loginButton, closeButton, checkBox);
@@ -99,8 +96,13 @@ public class Main extends Application {
             GridPane.setConstraints(checkBox, 1, 3);
         }
 
+        Rectangle2D screen = Screen.getPrimary().getVisualBounds();
+
         //Make the scene
-        Main.loginScene = new Scene(gridPane, 300, 110);
+        //Main.loginScene = new Scene(gridPane, 300, 110);
+        Main.loginScene = new Scene(gridPane);
+        Main.loginWindow.setX(screen.getWidth() - Main.loginWindow.getWidth() / 2);
+        Main.loginWindow.setY(screen.getHeight() - Main.loginWindow.getHeight() / 4);
         //Set the window to the scene
         Main.loginWindow.setScene(Main.loginScene);
 
@@ -116,15 +118,28 @@ public class Main extends Application {
     }
 
     void loginButtonEvent(ActionEvent event, String username, String password, String visablePassword) {
-        if (username.equals("pokerman99") && (password.equals("password") || visablePassword.equals("password"))) {
-            try {
-                new staffTrackerWindow().start();
-                Main.loginWindow.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(getUserAccount(username));
 
+            String DBP = null;
+
+            while (resultSet.next()) {
+                DBP = resultSet.getString(3);
+            }
+
+            if (DigestUtils.sha256Hex(password).equals(DBP)) {
+                try {
+                    new staffTrackerWindow().start();
+                    Main.loginWindow.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException | NullPointerException e) {
+            //alertBox.display("Error!", "Cannot connect to database to authorize login");
+        }
     }
 
     void checkboxEvent(ActionEvent event, GridPane gridPane, CheckBox checkBox, PasswordField passInput, TextField passInputVisable) {
@@ -144,6 +159,29 @@ public class Main extends Application {
     void onCloseRequest(WindowEvent event) {
         event.consume();
         closeProgramObject.closeProgramNoPrompot(Main.loginWindow);
+    }
+
+    public String getUserAccount(String username) {
+        String SQL = "SELECT * FROM users WHERE username='" + username + "';";
+        return SQL;
+    }
+
+    public static Connection getConnection() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://8.26.94.197:3306/ServerSuite", "ServerSuite", "C4O2ULec12CC86Nv");
+            return connection;
+        } catch (ClassNotFoundException | SQLException e) {
+            try {
+                //new alertBoxWindow().start();
+                System.out.println("yyet");
+                e.printStackTrace();
+
+            } catch (Exception e1) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
 }
