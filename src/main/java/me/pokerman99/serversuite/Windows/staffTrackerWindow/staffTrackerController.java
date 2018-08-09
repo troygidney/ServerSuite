@@ -16,7 +16,8 @@ public class staffTrackerController implements Initializable {
 
     public Tab tabMenu1;
     public Tab tabMenu2;
-    public TextArea staffTrackerTextArea;
+    //public TextArea staffTrackerTextArea;
+    public TableView<addItemsToColumn> staffTrackerTableView;
     public Button submitButton;
     public ChoiceBox<String> staffTrackerServerChoiceBox;
     public ChoiceBox<String> staffTrackerDateRangeLowerChoiceBox;
@@ -29,7 +30,7 @@ public class staffTrackerController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //staffTrackerWindow.passAllObjects(AnchorPane, tabPane, tabMenu1, tabMenu2, tabMenu3 ,tabMenu4, staffTrackerChoiceBox);
-        staffTrackerWindow.staffTrackerTab(tabMenu2, staffTrackerTextArea, submitButton, staffTrackerServerChoiceBox, staffTrackerDateRangeLowerChoiceBox, staffTrackerDateRangeHigherChoiceBox);
+        staffTrackerWindow.loadDefaults(tabMenu2, staffTrackerTableView, submitButton, staffTrackerServerChoiceBox, staffTrackerDateRangeLowerChoiceBox, staffTrackerDateRangeHigherChoiceBox);
     }
 
     //Do this so I can pass the event to a diff class
@@ -39,7 +40,7 @@ public class staffTrackerController implements Initializable {
 
     //Do this so I can pass the event to a diff class
     public void submitButtonClicked() {
-        staffTrackerWindow.submitButtonClicked(staffTrackerServerChoiceBox, staffTrackerDateRangeLowerChoiceBox, staffTrackerDateRangeHigherChoiceBox, staffTrackerTextArea);
+        staffTrackerWindow.submitButtonClicked(staffTrackerServerChoiceBox, staffTrackerDateRangeLowerChoiceBox, staffTrackerDateRangeHigherChoiceBox, staffTrackerTableView);
     }
 
 

@@ -10,7 +10,7 @@
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="200.0" prefWidth="150.0" xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/2.2"
-            fx:controller="me.pokerman99.serversuite.Objects.AlertBox.alertBoxController">
+            fx:controller="me.pokerman99.serversuite.Objects.AlertBox.closeBoxController">
     <children>
         <ImageView fitHeight="83.50003051757812" fitWidth="111.3333740234375" layoutX="0.0" layoutY="125.0"
                    opacity="0.23" pickOnBounds="true" preserveRatio="true">
@@ -21,9 +21,9 @@
         <Label fx:id="labelObject" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="84.0"
                prefHeight="42.0" prefWidth="113.0" text="" textAlignment="CENTER" wrapText="true"/>
         <Button fx:id="buttonOneObject" layoutX="87.0" layoutY="169.0" mnemonicParsing="false"
-                onAction="#onButtonOneClose" text="Close"/>
+                text="Close"/>
         <Button fx:id="buttonTwoObject" layoutX="14.0" layoutY="169.0" mnemonicParsing="false"
-                onAction="#onButtonTwoClose" text="No"/>
+                text="No"/>
         <Text fx:id="textObject" fontSmoothingType="LCD" layoutX="39.0" layoutY="39.0" scaleX="1.0194221522416362"
               scaleY="1.0031844637175722" strokeType="OUTSIDE" strokeWidth="0.0" text="">
             <font>

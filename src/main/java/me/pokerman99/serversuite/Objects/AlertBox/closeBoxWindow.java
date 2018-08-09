@@ -10,26 +10,29 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class alertBoxWindow {
+public class closeBoxWindow {
 
     public static Stage alertBoxWindow;
 
     //This is a jump start essentially
-    public void start() throws IOException {
+    public void start() {
+        try {
+            AnchorPane root = FXMLLoader.load(getClass().getClassLoader().getResource("alertBox.fxml"));
 
-        AnchorPane root = FXMLLoader.load(getClass().getClassLoader().getResource("alertBox.fxml"));
+            alertBoxWindow = new Stage();
 
-        alertBoxWindow = new Stage();
+            alertBoxWindow.setOnCloseRequest(event -> {
+                event.consume();
+                alertBoxWindow.close();
+            });
 
-        alertBoxWindow.setOnCloseRequest(event -> {
-            event.consume();
-            alertBoxWindow.close();
-        });
+            //closeBoxWindow.setTitle("Test1");        - No point for a title when the window is to small
+            alertBoxWindow.setScene(new Scene(root));
+            alertBoxWindow.setResizable(false);
+            alertBoxWindow.show();
+        } catch (IOException e) {
 
-        alertBoxWindow.setTitle("Test1");
-        alertBoxWindow.setScene(new Scene(root));
-        alertBoxWindow.setResizable(false);
-        alertBoxWindow.show();
+        }
 
     }
 
@@ -51,6 +54,8 @@ public class alertBoxWindow {
                 alertBoxWindow.close();
             });
         }
+
+        //TODO Make it so you can set this text from where ever this window is being called, buttons too
 
         {
             text.setText("Are you\n  sure?");

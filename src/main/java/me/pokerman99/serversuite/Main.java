@@ -173,7 +173,7 @@ public class Main extends Application {
             return connection;
         } catch (ClassNotFoundException | SQLException e) {
             try {
-                //new alertBoxWindow().start();
+                //new closeBoxWindow().start();
                 System.out.println("yyet");
                 e.printStackTrace();
 

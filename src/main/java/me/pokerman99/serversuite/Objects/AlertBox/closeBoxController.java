@@ -9,20 +9,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class alertBoxController implements Initializable {
+public class closeBoxController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        alertBoxWindow.loadSettings(textObject, labelObject, buttonOneObject, buttonTwoObject);
-    }
-
-
-    public void onButtonOneClose() {
-
-    }
-
-    public void onButtonTwoClose() {
-
+        closeBoxWindow.loadSettings(textObject, labelObject, buttonOneObject, buttonTwoObject);
     }
 
     public Text textObject = new Text();

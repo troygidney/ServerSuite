@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<AnchorPane fx:id="AnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="615.0"
+            prefWidth="1224.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
+            fx:controller="me.pokerman99.serversuite.Windows.staffTrackerWindow.staffTrackerController">
+    <children>
+        <TabPane fx:id="tabPane" disable="false" focusTraversable="false" prefHeight="615.0" prefWidth="1224.0"
+                 rotateGraphic="false" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0"
+                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <tabs>
+                <Tab fx:id="tabMenu1" onSelectionChanged="#onTabViewMenu1" text="Home">
+                    <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="527.0" prefWidth="751.0"/>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabMenu2" onSelectionChanged="#onTabViewMenu2" text="Staff Tracker">
+                    <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="615.0" prefWidth="1193.0">
+                            <children>
+                                <ChoiceBox fx:id="staffTrackerServerChoiceBox" onAction="#serverSelected" layoutX="14.0"
+                                           AnchorPane.bottomAnchor="14.0">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="SELECT"/>
+                                        </FXCollections>
+                                    </items>
+                                </ChoiceBox>
+                                <ChoiceBox fx:id="staffTrackerDateRangeLowerChoiceBox" prefWidth="152.0"
+                                           AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="107.0">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="SELECT"/>
+                                        </FXCollections>
+                                    </items>
+                                </ChoiceBox>
+                                <Label text="To:" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="266.0"/>
+                                <ChoiceBox fx:id="staffTrackerDateRangeHigherChoiceBox" prefWidth="152.0"
+                                           AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="291.0">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="SELECT"/>
+                                        </FXCollections>
+                                    </items>
+                                </ChoiceBox>
+                                <Label text="Server:" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="22.0"/>
+                                <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitButtonClicked"
+                                        text="Go" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0"/>
+                                <TableView id="staffTrackerTable" fx:id="staffTrackerTableView" prefHeight="535.0"
+                                           prefWidth="231.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="14.0"
+                                           AnchorPane.topAnchor="14.0"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabMenu3" onSelectionChanged="#onTabViewMenu3" text="TODO - Placeholder">
+                    <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                    </content>
+                </Tab>
+                <Tab fx:id="tabMenu4" onSelectionChanged="#onTabViewMenu4" text="TODO - Placeholder">
+                    <content>
+                        <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>
