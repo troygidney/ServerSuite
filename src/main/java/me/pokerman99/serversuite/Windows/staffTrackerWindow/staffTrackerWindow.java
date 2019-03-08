@@ -51,7 +51,7 @@ public class staffTrackerWindow {
         //Set defaults for choiceboxes
         {
             staffTrackerServerChoiceBox.setValue("SELECT");
-            staffTrackerServerChoiceBox.getItems().addAll("PD", "PV", "PL", "PC");
+            staffTrackerServerChoiceBox.getItems().addAll("PD", "PV", "PL", "PC", "PB");
 
             staffTrackerDateRangeLowerChoiceBox.setValue("SELECT");
 
@@ -228,7 +228,7 @@ public class staffTrackerWindow {
 
 
     public static String getDates(String server) {
-        String SQL = "SELECT date FROM " + server + " WHERE uuid='3fdc6561-8e09-4a09-8f6b-fff5cb8710c8';";
+        String SQL = "SELECT date FROM " + server + " WHERE uuid='5b03f120-12ac-440a-8966-b215408b7c02';";
         return SQL;
     }
 

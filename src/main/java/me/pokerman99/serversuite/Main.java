@@ -37,12 +37,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //Set this so it can be closed from anywhere in the program.
-        Main.loginWindow = primaryStage;
+        Main.stafftrackerWindow = primaryStage;
         //Set the title of the app
-        Main.loginWindow.setTitle("ServerSuite");
-        //Don't allow people to resize it
-        Main.loginWindow.setResizable(false);
+        Main.stafftrackerWindow.setTitle("ServerSuite");
 
+        new staffTrackerWindow().start();
+
+        /*
         Label nameLabel = new Label();
         Label passLabel = new Label();
         TextField nameInput = new TextField();
@@ -109,7 +110,7 @@ public class Main extends Application {
 
         //Display the window
         Main.loginWindow.show();
-
+        */
 
     }
 
