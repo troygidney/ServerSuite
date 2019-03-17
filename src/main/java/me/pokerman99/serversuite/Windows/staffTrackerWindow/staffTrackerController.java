@@ -5,7 +5,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import me.pokerman99.serversuite.Main;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class staffTrackerController implements Initializable {
@@ -43,6 +48,13 @@ public class staffTrackerController implements Initializable {
         staffTrackerWindow.submitButtonClicked(staffTrackerServerChoiceBox, staffTrackerDateRangeLowerChoiceBox, staffTrackerDateRangeHigherChoiceBox, staffTrackerTableView);
     }
 
+    public void dateHigherSelected() {
+    }
+
+    public void dateLowerSelected() {
+
+    }
+
 
     public void onTabViewMenu1() {
         try {
@@ -71,5 +83,16 @@ public class staffTrackerController implements Initializable {
         Main.stafftrackerWindow.setTitle("ServerSuite - Staff Tracker12346");
 
 
+    }
+
+    public static Connection getConnection() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://104.236.10.120/staff_tracker", "staff_tracker", "hDOJQed032");
+            return connection;
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

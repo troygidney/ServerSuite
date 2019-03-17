@@ -10,9 +10,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import me.pokerman99.serversuite.Main;
 import me.pokerman99.serversuite.Objects.AlertBox.closeBoxWindow;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 
 
@@ -77,8 +79,8 @@ public class staffTrackerWindow {
 
         //Execute sql statement to grab new values and fill the choices with the avaliable dates
         {
-            try {
-                Connection connection = getConnection();
+
+                /*Connection connection = getConnection();
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(getDates(server.toLowerCase()));
 
@@ -90,26 +92,36 @@ public class staffTrackerWindow {
 
                 }
                 Collections.reverse(dates);
-
+*/
                 {
                     //Adding dates to choiceboxes
-                    staffTrackerDateRangeLowerChoiceBox.getItems().addAll(dates);
+                    //staffTrackerDateRangeLowerChoiceBox.getItems().addAll(dates);
 
                     staffTrackerDateRangeHigherChoiceBox.getItems().add("NOW");
-                    staffTrackerDateRangeHigherChoiceBox.getItems().addAll(dates);
+                    staffTrackerDateRangeHigherChoiceBox.getItems().add("1 Week");
+                    staffTrackerDateRangeHigherChoiceBox.getItems().add("1 Month");
+                    staffTrackerDateRangeHigherChoiceBox.getItems().add("3 Months");
+                    staffTrackerDateRangeHigherChoiceBox.getItems().add("6 Months");
+
+                    //staffTrackerDateRangeHigherChoiceBox.getItems().addAll(dates);
 
                     staffTrackerDateRangeHigherChoiceBox.setValue("NOW");
-                    staffTrackerDateRangeLowerChoiceBox.setValue(staffTrackerDateRangeLowerChoiceBox.getItems().get(0));
+
+                    staffTrackerDateRangeLowerChoiceBox.getItems().add("NOW");
+
+
+                    //staffTrackerDateRangeHigherChoiceBox.getItems().addAll(dates);
+
+                    staffTrackerDateRangeLowerChoiceBox.setValue("NOW");
+//                    staffTrackerDateRangeLowerChoiceBox.setValue(staffTrackerDateRangeLowerChoiceBox.getItems().get(0));
 
                 }
 
                 //Close the connection
-                resultSet.close();
+               // resultSet.close();
 
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+
         }
 
 
@@ -147,9 +159,6 @@ public class staffTrackerWindow {
 
         //Setting the fuctions if not valid or need to be changed
         {
-            if (selectedTimeHigher.equals("NOW")) {
-                selectedTimeHigher = staffTrackerDateRangeLowerChoiceBox.getItems().get(0);
-            }
             if (selectedServer.equals("select")) return;
         }
 
@@ -167,22 +176,76 @@ public class staffTrackerWindow {
                 Map<String, String> map = new HashMap<>();
 
                 //Getting the name and playtime data
+                ResultSet resultSet = statement.executeQuery("SELECT date FROM " + selectedServer + " ORDER BY id DESC LIMIT 0,1;");
+                Date now = null;
+                Date calDate = new Date(Calendar.getInstance().getTimeInMillis());
+                Calendar cal = null;
+
+                while(resultSet.next()) {
+                    now = resultSet.getDate("date");
+                    cal = Calendar.getInstance();
+                    cal.setTime(now);
+                }
+
+                resultSet.close();
+
+
+                switch (selectedTimeHigher) {
+                    case "1 Week": {
+                        cal.add(Calendar.DAY_OF_WEEK, -5);
+                        break;
+                    }
+                    case "1 Month": {
+                        cal.add(Calendar.MONTH, -1);
+                        break;
+                    }
+                    case "3 Months": {
+                        cal.add(Calendar.MONTH, -3);
+                        break;
+                    }
+                    case "6 Months": {
+                        cal.add(Calendar.MONTH, -6);
+                        break;
+                    }
+                    case "NOW":
+                }
+
+                calDate.setTime(cal.getTimeInMillis());
+
+
                 {
                     for (String staffName : namesOfStaff) {
-                        int lowerPoints = 0;
-                        int higherPoints = 0;
 
-                        ResultSet resultSet = statement.executeQuery(getPlayTimeLowerTime(selectedServer, staffName, selectedTimeLower));
-                        while (resultSet.next()) {
-                            lowerPoints = resultSet.getInt(1);
+
+                        //System.out.println(calDate);
+                        //System.out.println(now);
+
+                        ResultSet resultSetBefore = statement.executeQuery("SELECT DISTINCT name, date, (playtime)time FROM "+ selectedServer +" WHERE DATE LIKE '"+ calDate.toString() +"%' AND name='"+ staffName +"';");
+
+
+                        int playtimeBefore = 0;
+                        //String name;
+                        DateTime nowDate;
+
+                        while (resultSetBefore.next()) {
+                            //playtimeBefore = resultSetBefore.getInt(3);
+                            playtimeBefore = resultSetBefore.getInt("time");
                         }
 
-                        ResultSet resultSet1 = statement.executeQuery(getPlayTimeHigherTime(selectedServer, staffName, selectedTimeHigher));
-                        while (resultSet1.next()) {
-                            higherPoints = resultSet1.getInt(1);
+                        resultSetBefore.close();
+                        ResultSet resultSetNow = statement.executeQuery("SELECT DISTINCT name, date, playtime FROM "+ selectedServer +" WHERE date LIKE '"+ now +"%'AND name='"+ staffName +"';");
+
+                        int playtimeNow = 0;
+                        while (resultSetNow.next()) {
+                            playtimeNow = resultSetNow.getInt(3);
                         }
 
-                        map.put(staffName, String.valueOf(higherPoints - lowerPoints));
+                        resultSetNow.close();
+                        System.out.println(playtimeBefore - playtimeNow);
+
+
+
+                        map.put(staffName, String.valueOf(playtimeNow - playtimeBefore));
                     }
                 }
 

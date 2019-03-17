@@ -29,7 +29,7 @@
                                         </FXCollections>
                                     </items>
                                 </ChoiceBox>
-                                <ChoiceBox fx:id="staffTrackerDateRangeLowerChoiceBox" prefWidth="152.0"
+                                <ChoiceBox fx:id="staffTrackerDateRangeLowerChoiceBox" onAction="#dateLowerSelected" prefWidth="152.0"
                                            AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="107.0">
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
@@ -38,7 +38,7 @@
                                     </items>
                                 </ChoiceBox>
                                 <Label text="To:" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="266.0"/>
-                                <ChoiceBox fx:id="staffTrackerDateRangeHigherChoiceBox" prefWidth="152.0"
+                                <ChoiceBox fx:id="staffTrackerDateRangeHigherChoiceBox" onAction="#dateHigherSelected" prefWidth="152.0"
                                            AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="291.0">
                                     <items>
                                         <FXCollections fx:factory="observableArrayList">
