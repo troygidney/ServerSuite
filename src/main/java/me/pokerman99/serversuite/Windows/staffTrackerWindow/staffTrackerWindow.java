@@ -99,7 +99,10 @@ public class staffTrackerWindow {
 
                     staffTrackerDateRangeHigherChoiceBox.getItems().add("NOW");
                     staffTrackerDateRangeHigherChoiceBox.getItems().add("1 Week");
+                    staffTrackerDateRangeHigherChoiceBox.getItems().add("2 Weeks");
+                    staffTrackerDateRangeHigherChoiceBox.getItems().add("3 Weeks");
                     staffTrackerDateRangeHigherChoiceBox.getItems().add("1 Month");
+                    staffTrackerDateRangeHigherChoiceBox.getItems().add("2 Months");
                     staffTrackerDateRangeHigherChoiceBox.getItems().add("3 Months");
                     staffTrackerDateRangeHigherChoiceBox.getItems().add("6 Months");
 
@@ -192,11 +195,23 @@ public class staffTrackerWindow {
 
                 switch (selectedTimeHigher) {
                     case "1 Week": {
-                        cal.add(Calendar.DAY_OF_WEEK, -5);
+                        cal.add(Calendar.DAY_OF_WEEK, -7);
+                        break;
+                    }
+                    case "2 Weeks": {
+                        cal.add(Calendar.DAY_OF_WEEK, -14);
+                        break;
+                    }
+                    case "3 Weeks": {
+                        cal.add(Calendar.DAY_OF_WEEK, -21);
                         break;
                     }
                     case "1 Month": {
                         cal.add(Calendar.MONTH, -1);
+                        break;
+                    }
+                    case "2 Months": {
+                        cal.add(Calendar.MONTH, -2);
                         break;
                     }
                     case "3 Months": {
@@ -242,6 +257,9 @@ public class staffTrackerWindow {
 
                         resultSetNow.close();
                         System.out.println(playtimeBefore - playtimeNow);
+                        if ((playtimeBefore - playtimeNow) == 0) {
+                            continue;
+                        }
 
 
 
