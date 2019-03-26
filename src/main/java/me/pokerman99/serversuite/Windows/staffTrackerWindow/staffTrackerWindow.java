@@ -256,8 +256,7 @@ public class staffTrackerWindow {
                         }
 
                         resultSetNow.close();
-                        System.out.println(playtimeBefore - playtimeNow);
-                        if ((playtimeBefore - playtimeNow) == 0) {
+                        if ((playtimeNow - playtimeBefore) == 0) {
                             continue;
                         }
 
